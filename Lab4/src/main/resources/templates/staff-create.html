@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Create</title>
+</head>
+<body>
+<h2>Form nhập thông tin nhân viên</h2>
+
+<!-- Form phải có enctype="multipart/form-data" -->
+<form th:action="@{/staff/create/save}" 
+      method="post" 
+      th:object="${staff}" 
+      enctype="multipart/form-data">
+
+    <label>Email:</label>
+    <input type="text" th:field="*{id}"><br><br>
+
+    <label>Họ và tên:</label>
+    <input type="text" th:field="*{fullname}"><br><br>
+
+    <label>Ngày sinh:</label>
+    <input type="date" th:field="*{birthday}"><br><br>
+
+    <label>Lương:</label>
+    <input type="number" th:field="*{salary}"><br><br>
+
+    <label>Cấp bậc:</label>
+    <select th:field="*{level}">
+        <option value="0">Uỷ</option>
+        <option value="1">Tá</option>
+        <option value="2">Tướng</option>
+    </select><br><br>
+
+    <label>Ảnh:</label>
+    <!-- name="photo_file" trùng với @RequestParam trong Controller -->
+    <input type="file" name="photo_file"><br><br>
+
+    <button type="submit">Lưu</button>
+</form>
+
+<hr>
+<!-- Hiển thị message -->
+<p th:text="${message}"></p>
+
+<!-- Hiển thị kết quả nhập sau khi submit -->
+<div th:if="${staff != null}">
+    <h3>Kết quả nhập</h3>
+    <img th:src="@{/images/{p}(p=${staff.photo})}" width="120"><br>
+    Email: <b th:text="${staff.id}"></b><br>
+    Họ và tên: <b th:text="${staff.fullname}"></b><br>
+    Ngày sinh: <b th:text="${#dates.format(staff.birthday,'dd-MM-yyyy')}"></b><br>
+    Lương: <b th:text="${staff.salary}"></b><br>
+    Cấp bậc:
+    <span th:switch="${staff.level}">
+        <span th:case="0">Uỷ</span>
+        <span th:case="1">Tá</span>
+        <span th:case="2">Tướng</span>
+    </span>
+</div>
+
+</body>
+</html>

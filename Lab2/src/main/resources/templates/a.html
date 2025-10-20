@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 5 - ResultController</title>
+</head>
+<body>
+    <h2>Kết quả từ Controller</h2>
+
+    <!-- hiển thị message truyền qua Model -->
+    <h3 th:text="${message}"></h3>
+
+    <!-- hiển thị message truyền qua RedirectAttributes -->
+    <h3 th:text="${param.message}"></h3>
+</body>
+</html>
